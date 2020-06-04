@@ -27,31 +27,42 @@ def owning_print(amount):
    elem = driver.find_element_by_id(amount).text
    return elem
 
+def check_for_invalid(string):
+    new_string = string.replace(",", "")
+    return new_string
+
 upgradestacker = 100
 
 count   = 0
 cursor  = 15
 grandma = 100
 farm    = 1100
+mine    = 12000
+factory = 130000
 
-for i in range(0, 1000000):
+for i in range(0, 100000000):
     elem.click()
     #print("Cookie clicks: ", i)
     c = cookie_amount("cookies")
     l = c.split(' ')
-    count = int(l[0])
-    #print(l[0])
+    new_cookie = check_for_invalid(l[0])
+    count = int(new_cookie)
+    #print(count)
 
     if count > cursor:
         print("Cursor cost: ", cursor)
-        cursor = int(upgrade_cost("productPrice0"))
+
+        cursor_price = check_for_invalid(upgrade_cost("productPrice0"))
+        cursor = int(cursor_price)
         count = 0
+        
         product("product0")
+        
         print("Cursor owned: ", owning_print("productOwned0"))
         print("")
 
     if count > upgradestacker:
-        #print("Cursor upgrade cost: ", cursor)
+        print("Cursor upgrade cost: ", cursor)
         upgradestacker = upgradestacker + 500
         count = 0
         upgrade("upgrade0")
@@ -59,20 +70,51 @@ for i in range(0, 1000000):
 
     if count > grandma:
         print("Grandma cost: ", grandma)
-        grandma = int(upgrade_cost("productPrice1"))
+
+        grandma_price = check_for_invalid(upgrade_cost("productPrice1"))
+        grandma = int(grandma_price)
         count = 0
+
         product("product1")
+
         print("Grandma owned: ", owning_print("productOwned1"))
         print("")
         
     if count > farm:
-        #print("Farm cost: ", farm)
-        farm = int(upgrade_cost("productPrice2"))
+        print("Farm cost: ", farm)
+
+        farm_price = check_for_invalid(upgrade_cost("productPrice2"))
+        farm = int(farm_price)
         count = 0
+
         product("product2")
+
         print("Farm owned: ", owning_print("productOwned2"))
         print("")
 
+    if count > mine:
+        print("Mine cost: ", mine)
+
+        mine_price = check_for_invalid(upgrade_cost("productPrice3"))
+        mine = int(mine_price)
+        count = 0
+
+        product("product3")
+
+        print("mine owned: ", owning_print("productOwned3"))
+        print("")
+
+    if count > factory:
+        print("Factory cost: ", factory)
+
+        factory_price = check_for_invalid(upgrade_cost("productPrice4"))
+        factory = int(factory_price)
+        count = 0
+
+        product("product4")
+
+        print("factory owned: ", owning_print("productOwned4"))
+        print("")
 
 
 print("Hello")
